@@ -1,0 +1,130 @@
+How to install Homebrew on macOS — step-by-step
+
+Nice — here’s a short, safe, copy-pasteable guide that works for Intel Macs and Apple Silicon (M1/M2). I’ll include diagnostics, PATH steps, and a quick smoke test.
+
+⸻
+
+1) Open Terminal
+
+Applications → Utilities → Terminal (or Spotlight ⌘+Space → “Terminal”).
+
+⸻
+
+2) Install Xcode Command Line Tools (required)
+
+Run:
+
+xcode-select --install
+
+A dialog will appear — click Install. If they’re already installed you’ll get a message saying so.
+
+⸻
+
+3) Confirm your Mac CPU (Intel vs Apple Silicon)
+
+Run:
+
+uname -m
+
+	•	arm64 → Apple Silicon (M1/M2)
+	•	x86_64 → Intel
+
+You need this so the correct Homebrew PATH is set after installation.
+
+⸻
+
+4) Run the official Homebrew installer (one line)
+
+Copy & paste exactly:
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+This clones Homebrew to the right location and does basic setup. During the install it may ask for your password to create directories.
+
+The script will print the exact commands you need to add to your shell profile — follow those printed instructions (next step also shows the common ones).
+
+⸻
+
+5) Add Homebrew to your shell environment (if the installer doesn’t auto-add)
+
+After install, run the command appropriate for your CPU type.
+
+Apple Silicon (arm64, default path /opt/homebrew)
+
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+Intel (x86_64, default path /usr/local)
+
+echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/usr/local/bin/brew shellenv)"
+
+If you use bash or you prefer ~/.zshrc, you can add the same eval line there. On macOS with zsh, ~/.zprofile is preferred for login shells.
+
+⸻
+
+6) Verify installation
+
+Check version and run a quick health check:
+
+brew --version
+brew update
+brew doctor
+
+brew --version should print a version. brew doctor will say Your system is ready to brew. (or point out recommended fixes).
+
+⸻
+
+7) Optional: disable analytics
+
+If you want to turn off Homebrew analytics:
+
+brew analytics off
+
+
+⸻
+
+8) Quick test: install something tiny
+
+Install wget to confirm brew installs packages:
+
+brew install wget
+wget --version
+
+
+⸻
+
+9) Uninstall (if you change your mind)
+
+To completely remove Homebrew later:
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+
+
+⸻
+
+Troubleshooting (common issues)
+	•	Permission errors on /usr/local (Intel): run sudo chown -R $(whoami) /usr/local/* only if necessary and if you understand the change. Prefer the installer messages first.
+	•	brew not found after install: make sure you ran the eval "$(.../brew shellenv)" command and restarted your terminal.
+	•	Installer asks for password: that’s your macOS user password (to create directories).
+	•	Network blocked: if curl fails, ensure you have internet access and that curl is allowed by any firewall.
+
+⸻
+
+Short checklist (the minimum commands)
+
+xcode-select --install
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# then (for Apple Silicon)
+eval "$(/opt/homebrew/bin/brew shellenv)"
+# or (for Intel)
+eval "$(/usr/local/bin/brew shellenv)"
+brew --version
+brew doctor
+
+
+⸻
+
+If you’d like, I can:
+	•	Give you the exact eval line to add based on your uname -m (paste the uname -m output here), or
+	•	Walk you through installing a package (e.g., git or MesloLGS NF via Homebrew Cask) once brew is installed.
