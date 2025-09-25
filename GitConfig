@@ -22,5 +22,5 @@ git config --global -e
 // if Mac
 git config --global core.autocrlf input
 
-//
+//Help
 git config -h
