@@ -1,25 +1,25 @@
-// In terminal
+//In terminal
 idea .
 
-// Initialise git clone if New Project(create repository in github site)
+//Initialise git clone if New Project(create repository in github site)
 git clone https:....
 
 //Commit
 make a commit
 
-//
+//Name
 git config --global user.name "Kavi Bharathi"
 
-//
+//Email
 git config --global user.email kavibharathi1k@gmail.com
 
-// Set Editor
+//Set Editor
 git config --global core.editor "code --wait"
 
 //Open config file
 git config --global -e
 
-// if Mac
+//If Mac
 git config --global core.autocrlf input
 
 //Help
