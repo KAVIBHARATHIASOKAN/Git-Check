@@ -4,3 +4,5 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 //Master
 Detach Commit
+
+//Master Git
